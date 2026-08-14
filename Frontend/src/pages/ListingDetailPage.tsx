@@ -12,7 +12,7 @@ import ConfirmDialog from "../components/ConfirmDialog";
 import { useAuth } from "../context/AuthContext";
 
 const ListingDetailPage = () => {
-    const user = useAuth();
+    const {user} = useAuth();
     const { id } = useParams<{ id: string }>();
     const navigate = useNavigate();
 
