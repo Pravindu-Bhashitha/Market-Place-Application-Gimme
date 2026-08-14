@@ -13,12 +13,13 @@ const AppRoutes = () => {
   return (
     <Suspense fallback={<LoadingState fullPage message="Loading page..." />}>
       <Routes>
+        <Route path="*" element={<div className="text-center py-5"><h3>Page not found</h3></div>} />
         <Route path="/" element={<ListingsPage />} />
         <Route path="/listings/:id" element={<ListingDetailPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route
-          path="/create"
+          path="/create-listing"
           element={
             <ProtectedRoute>
               <CreateListingPage />
