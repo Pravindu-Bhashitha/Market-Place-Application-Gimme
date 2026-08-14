@@ -1,17 +1,9 @@
 import { Listing, ListingsQuery, ListingWithSimilar, NewListingInput, Pagination } from "../types/listing.types";
 import { listingsRepository } from "../repositories/listings.repository";
 import { ApiError } from "../utils/ApiError";
+import { normalizePagination } from "../utils/pagination";
 
 const SIMILAR_ITEMS_LIMIT = 4;
-const DEFAULT_PAGE_SIZE = 12;
-const MAX_PAGE_SIZE = 50;
-
-function normalizePagination(page?: number, pageSize?: number) {
-    let normalizedPage = page && page > 0 ? page : 1;
-    let normalizedPageSize = pageSize && pageSize > 0 ? pageSize : DEFAULT_PAGE_SIZE;
-    if (normalizedPageSize > MAX_PAGE_SIZE) normalizedPageSize = MAX_PAGE_SIZE;
-    return { page: normalizedPage, pageSize: normalizedPageSize };
-}
 
 export const listingsService = {
     getListings(query: ListingsQuery): { data: Listing[], pagination: Pagination } {
