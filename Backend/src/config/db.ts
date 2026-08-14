@@ -5,11 +5,15 @@ import fs from "fs";
 const DATA_DIR = path.join(__dirname, "..", "..", "data");
 const DB_PATH = path.join(DATA_DIR, "marketplace.db");
 
-if (!fs.existsSync(DATA_DIR)) {
+const isTest = process.env.NODE_ENV === "test";
+
+if (!isTest && !fs.existsSync(DATA_DIR)) {
   fs.mkdirSync(DATA_DIR, { recursive: true });
 }
 
-export const db = new Database(DB_PATH);
+export const db = new Database(isTest ? ":memory:" : DB_PATH);
+
+if (!isTest) db.pragma("journal_mode = WAL");
 
 db.pragma("journal_mode = WAL");
 
