@@ -25,6 +25,13 @@ db.exec(`
     createdAt   TEXT NOT NULL
   );
 
+  CREATE TABLE IF NOT EXISTS users (
+    id           INTEGER PRIMARY KEY AUTOINCREMENT,
+    email        TEXT NOT NULL UNIQUE,
+    passwordHash TEXT NOT NULL,
+    createdAt    TEXT NOT NULL
+  );
+
   CREATE INDEX IF NOT EXISTS idx_listings_category ON listings(category);
   CREATE INDEX IF NOT EXISTS idx_listings_price ON listings(price);
   CREATE INDEX IF NOT EXISTS idx_listings_createdAt ON listings(createdAt);
