@@ -12,6 +12,8 @@ build/
 .env.*.local
 
 # database (backend)
+*.db-wal
+*.db-shm
 *.db
 *.sqlite
 *.sqlite3
