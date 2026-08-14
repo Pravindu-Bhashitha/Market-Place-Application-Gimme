@@ -3,12 +3,12 @@ import type { AuthResponse, LoginInput, RegisterInput } from "../types/auth.type
 
 export const authApi = {
   async register(input: RegisterInput): Promise<AuthResponse> {
-    const res = await axiosClient.post<{ data: AuthResponse }>("/auth/register", input);
-    return res.data.data;
+    const res = await axiosClient.post<AuthResponse>("/auth/register", input);
+    return res.data;
   },
 
   async login(input: LoginInput): Promise<AuthResponse> {
-    const res = await axiosClient.post<{ data: AuthResponse }>("/auth/login", input);
-    return res.data.data;
+    const res = await axiosClient.post<AuthResponse >("/auth/login", input);
+    return res.data;
   },
 };

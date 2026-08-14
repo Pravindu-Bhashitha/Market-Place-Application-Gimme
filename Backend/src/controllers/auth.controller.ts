@@ -12,7 +12,7 @@ export const authController = {
 
         try {
             const result = await authService.register(value);
-            res.status(201).json({ data: result });
+            res.status(201).json( result );
         } catch (err) {
             next(err);
         }
@@ -26,7 +26,7 @@ export const authController = {
 
         try {
             const result = await authService.login(value);
-            res.status(200).json({ data: result });
+            res.status(200).json(result );
         } catch (err) {
             next(err);
         }
