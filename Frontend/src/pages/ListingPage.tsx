@@ -1,35 +1,37 @@
 import { useMemo, useState } from "react";
 import { Container } from "react-bootstrap";
-import type { ListingsQueryParams } from "../types/listing.types";
-import type { FilterValues } from "../components/FilterBar";
-import FilterBar from "../components/FilterBar";
-import ErrorState from "../components/ErrorState";
-import LoadingState from "../components/LoadingState";
-import EmptyState from "../components/EmptyState";
-import ListingGrid from "../components/ListingGrid";
-import { DEFAULT_FILTERS } from "../constants/listing.constants";
-import PaginationControls from "../components/PaginationControls";
 import { useListings } from "../hooks/useListings";
 import { useDebouncedValue } from "../hooks/useDebouncedValue";
+import ListingGrid from "../components/ListingGrid";
+import PaginationControls from "../components/PaginationControls";
+import LoadingState from "../components/LoadingState";
+import ErrorState from "../components/ErrorState";
+import EmptyState from "../components/EmptyState";
+import type { ListingsQueryParams } from "../types/listing.types";
+import { DEFAULT_FILTERS } from "../constants/listing.constants";
+import type { FilterValues } from "../components/FilterBar";
+import FilterBar from "../components/FilterBar";
 
 const ListingsPage = () => {
   const [filters, setFilters] = useState<FilterValues>(DEFAULT_FILTERS);
   const [page, setPage] = useState(1);
 
   const debouncedSearch = useDebouncedValue(filters.search, 350);
+  const debouncedMinPrice = useDebouncedValue(filters.minPrice, 350);
+  const debouncedMaxPrice = useDebouncedValue(filters.maxPrice, 350);
 
   const queryParams = useMemo<ListingsQueryParams>(
     () => ({
       search: debouncedSearch || undefined,
       category: filters.category || undefined,
-      minPrice: filters.minPrice ? Number(filters.minPrice) : undefined,
-      maxPrice: filters.maxPrice ? Number(filters.maxPrice) : undefined,
+      minPrice: debouncedMinPrice ? Number(debouncedMinPrice) : undefined,
+      maxPrice: debouncedMaxPrice ? Number(debouncedMaxPrice) : undefined,
       sortBy: filters.sortBy,
       sortOrder: filters.sortOrder,
       page,
       pageSize: 12,
     }),
-    [debouncedSearch, filters.category, filters.minPrice, filters.maxPrice, filters.sortBy, filters.sortOrder, page]
+    [debouncedSearch, debouncedMinPrice, debouncedMaxPrice, filters.category, filters.sortBy, filters.sortOrder, page]
   );
 
   const { listings, pagination, loading, error, refetch } = useListings(queryParams);
