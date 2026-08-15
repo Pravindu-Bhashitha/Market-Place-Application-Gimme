@@ -43,7 +43,7 @@ export const listingsController = {
         }
         try {
             const result = listingsService.createListing(value);
-            res.status(201).json({data: result});
+            res.status(201).json(result);
         } catch (error) {
             next(error);
         }

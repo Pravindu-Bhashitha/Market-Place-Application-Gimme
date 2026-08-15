@@ -12,7 +12,7 @@ interface ListingCardProps {
 
 const ListingCard = ({ listing }: ListingCardProps) => {
     return (
-        <Card as={Link} to={`/listing/${listing.id}`} className="text-decoration-none text-dark shadow-sm">
+        <Card as={Link} to={`/listings/${listing.id}`} className="text-decoration-none text-dark shadow-sm">
             <Card.Img
                 variant="top"
                  src={getOptimizedImageUrl(listing.imageUrl, 400)}

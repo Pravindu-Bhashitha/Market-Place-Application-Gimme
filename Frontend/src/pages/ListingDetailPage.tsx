@@ -9,8 +9,10 @@ import LoadingState from "../components/LoadingState";
 import ErrorState from "../components/ErrorState";
 import SimilarListings from "../components/SimilarListings";
 import ConfirmDialog from "../components/ConfirmDialog";
+import { useAuth } from "../context/AuthContext";
 
 const ListingDetailPage = () => {
+    const {user} = useAuth();
     const { id } = useParams<{ id: string }>();
     const navigate = useNavigate();
 
@@ -93,11 +95,13 @@ const ListingDetailPage = () => {
 
                     <p className="text-muted">{listing.description}</p>
 
-                    <div className="d-flex gap-2 mt-4">
-                        <Button variant="danger" onClick={() => setShowConfirm(true)}>
-                            Delete listing
-                        </Button>
-                    </div>
+                    {user && (
+                        <div className="d-flex gap-2 mt-4">
+                            <Button variant="danger" onClick={() => setShowConfirm(true)}>
+                                Delete listing
+                            </Button>
+                        </div>
+                    )}
                 </Col>
             </Row>
 
