@@ -51,6 +51,7 @@ export interface ApiErrorResponse {
   error: {
     message: string;
     description?: string;
+    statusCode?: number;
   };
 }
 
